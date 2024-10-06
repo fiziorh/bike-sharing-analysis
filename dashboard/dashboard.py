@@ -2,13 +2,15 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
 
 # Load your data
 @st.cache_data
 def load_data():
-    df_hour = pd.read_csv('hour.csv')
-    df_day = pd.read_csv('day.csv')
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    df_hour = pd.read_csv(os.path.join(current_dir, 'hour.csv'))
+    df_day = pd.read_csv(os.path.join(current_dir, 'day.csv'))
     df_day['dteday'] = pd.to_datetime(df_day['dteday'])
     df_hour['dteday'] = pd.to_datetime(df_hour['dteday'])
     return df_day, df_hour
